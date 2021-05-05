@@ -1,0 +1,49 @@
+<% layout('/layouts/boilerplate') -%>
+
+    <div class="row">
+        <h1 class="text-center">Edit Campground</h1>
+        <div class="col-6 offset-3">
+
+            <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" class="needs-validation"
+                novalidate>
+
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" id="title" name='campground[title]'
+                        value="<%= campground.title%>"" required>
+                        </div>
+                        <div class=" mb-3">
+                    <label class="form-label" for="location">Location</label>
+                    <input class="form-control" type="text" id="location" name='campground[location]'
+                        value="<%= campground.location%>" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="price">Price</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="price-label">$</span>
+                        <input id="price" type="number" class="form-control" placeholder="0.00" min="0"
+                            aria-label="price" name="campground[price]" value="<%= campground.price%>"
+                            aria-describedby="price-label" required>
+                    </div>
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description"
+                        name='campground[description]'><%= campground.description%></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="imagen">Image URL</label>
+                    <input class="form-control" type="text" id="limage" name='campground[image]'
+                        value="<%= campground.image%>">
+                </div>
+
+                <div class="mb-3">
+                    <button class="btn btn-info">Update campground</button>
+                </div>
+            </form>
+            <footer>
+                <a href=" /campgrounds/<%=campground._id %>">back to campground</a>
+            </footer>
+        </div>
+    </div>
