@@ -1,5 +1,5 @@
 const express = require('express');
-const session = require("express-session");
+const session = require('express-session');
 const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -11,40 +11,38 @@ const app = express();
 
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
-const { func } = require('joi');
 
 const appConfig = (function () {
     app.engine('ejs', ejsMate);
     app.set('view engine', 'ejs');
     app.set('views', path.join(__dirname, 'views'));
 
-    app.use(express.static(path.join(__dirname, "public")));
+    app.use(express.static(path.join(__dirname, 'public')));
     app.use(express.urlencoded({ extended: true }));
     app.use(methodOverride('_method'));
 
     const sessionConfig = {
-        secret: "defaultSecret",
+        secret: 'defaultSecret',
         resave: false,
         saveUninitialized: true,
         cookie: {
             expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
             maxAge: 1000 * 60 * 60 * 24 * 7,
-            httpOnly: true
-        }
-    }
+            httpOnly: true,
+        },
+    };
     app.use(session(sessionConfig));
     app.use(flash());
 })();
 
 const mongooseConfig = (function () {
-
     mongoose.set('useFindAndModify', false);
 
     mongoose.connect('mongodb://localhost:27017/yelp-camp', {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true,
-        useFindAndModify: false
+        useFindAndModify: false,
     });
 
     const db = mongoose.connection;
@@ -54,7 +52,6 @@ const mongooseConfig = (function () {
     });
 })();
 
-
 //middleware
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
@@ -62,11 +59,9 @@ app.use((req, res, next) => {
     next();
 });
 
-
 //routes
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
-
 
 //home page
 app.get('/', (req, res) => {
@@ -74,8 +69,8 @@ app.get('/', (req, res) => {
 });
 
 app.all('*', (req, res, next) => {
-    next(new expressError('Page Not Found', 404))
-})
+    next(new expressError('Page Not Found', 404));
+});
 
 // error handeling
 app.use((err, req, res, next) => {
@@ -85,5 +80,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-    console.log("Server on port 3000")
+    console.log('Server on port 3000');
 });
