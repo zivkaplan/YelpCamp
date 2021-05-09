@@ -5,12 +5,16 @@ const mongoose = require('mongoose');
 const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
+const passport = require('passport');
+const localStrategy = require('passport-local');
 const expressError = require(__dirname + '/utilities/expressError');
+const User = require('./models/user');
 const port = 3000;
 const app = express();
 
-const campgrounds = require('./routes/campgrounds');
-const reviews = require('./routes/reviews');
+const campgroundRouter = require('./routes/campgrounds');
+const reviewRouter = require('./routes/reviews');
+const userRouter = require('./routes/users');
 
 const appConfig = (function () {
     app.engine('ejs', ejsMate);
@@ -33,6 +37,13 @@ const appConfig = (function () {
     };
     app.use(session(sessionConfig));
     app.use(flash());
+
+    //passport
+    app.use(passport.initialize());
+    app.use(passport.session());
+    passport.use(new localStrategy(User.authenticate()));
+    passport.serializeUser(User.serializeUser());
+    passport.deserializeUser(User.deserializeUser());
 })();
 
 const mongooseConfig = (function () {
@@ -60,8 +71,9 @@ app.use((req, res, next) => {
 });
 
 //routes
-app.use('/campgrounds', campgrounds);
-app.use('/campgrounds/:id/reviews', reviews);
+app.use('/campgrounds', campgroundRouter);
+app.use('/campgrounds/:id/reviews', reviewRouter);
+app.use('/', userRouter);
 
 //home page
 app.get('/', (req, res) => {
