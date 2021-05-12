@@ -1,5 +1,5 @@
 <% layout('/layouts/boilerplate') -%>
-
+<link rel="stylesheet" href="/css/reviewStars.css">
 <div class="row">
     <div class="col-6">
         <div class="card mb-3">
@@ -74,10 +74,9 @@
         <% for (let review of campground.reviews) { %>
         <div class="mb-3 card">
             <div class="card-body">
-                <p class="card-title text-center">
-                    <% for (let i=1; i<=review.rating; i++) { %> &starf; <% } %>
-                    <% for (let i=5; i>review.rating; i--) { %> &star; <% } %>
-                </p>
+                <p class="m-auto mb-2 starability-result" data-rating="<%= review.rating %>">
+                    Rated: <%= review.rating %> stars
+                  </p>
                 <p class="card-text text-center"><%= review.body %></p>
                 <footer class="blockquote-footer text-center">
                     <%= review.author.username %>

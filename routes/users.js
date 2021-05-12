@@ -5,21 +5,22 @@ const { isLoggedIn } = require('../middleware');
 const wrapAsync = require('../utilities/wrapAsync');
 const usersController = require('../controllers/users');
 
-router.get('/register', usersController.renderRegisterPage);
+router
+    .route('/register')
+    .get(usersController.renderRegisterPage)
+    .post(wrapAsync(usersController.registerUser));
 
-router.post('/register', wrapAsync(usersController.registerUser));
-
-router.get('/login', usersController.renderLoginPage);
-
-router.post(
-    '/login',
-    passport.authenticate('local', {
-        failureFlash: true,
-        successFlash: 'Welcome back!',
-        failureRedirect: '/login',
-    }),
-    usersController.loginUser
-);
+router
+    .route('/login')
+    .get(usersController.renderLoginPage)
+    .post(
+        passport.authenticate('local', {
+            failureFlash: true,
+            successFlash: 'Welcome back!',
+            failureRedirect: '/login',
+        }),
+        usersController.loginUser
+    );
 
 router.get('/logout', isLoggedIn, usersController.logoutUser);
 
