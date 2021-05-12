@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Campground = require('../models/campground');
+const User = require('../models/user');
+const passport = require('passport');
 const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
 
@@ -23,6 +25,11 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDb = async () => {
     await Campground.deleteMany({});
+    await User.deleteMany({});
+
+    const user = new User({ username: 'Tim', email: 'tim@tim.com' });
+    const defaultUser = await User.register(user, 'tim');
+
     for (let i = 0; i < 50; i++) {
         const camp = new Campground({
             title: `${sample(descriptors)} ${sample(places)}`,
@@ -33,6 +40,7 @@ const seedDb = async () => {
             description:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae tortor condimentum lacinia quis vel eros. Ultrices dui sapien eget mi. Vel facilisis volutpat est velit egestas dui. Mus mauris vitae ultricies leo.',
             price: randomInt(20) + 10,
+            author: defaultUser._id,
         });
         await camp.save();
     }
