@@ -36,7 +36,12 @@ const seedDb = async () => {
             location: `${cities[randomInt(1000)].city}, ${
                 cities[randomInt(1000)].state
             }`,
-            image: 'https://source.unsplash.com/collection/483251',
+            images: [
+                {
+                    url: 'https://source.unsplash.com/collection/483251',
+                    filename: 'unsplash',
+                },
+            ],
             description:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae tortor condimentum lacinia quis vel eros. Ultrices dui sapien eget mi. Vel facilisis volutpat est velit egestas dui. Mus mauris vitae ultricies leo.',
             price: randomInt(20) + 10,

@@ -1,12 +1,16 @@
 const express = require('express');
+const multer = require('multer');
+const { storage } = require('../cloudinary');
+const upload = multer({ storage });
+
 const router = express.Router();
 const wrapAsync = require('../utilities/wrapAsync');
 const campgroundsController = require('../controllers/campgrounds');
-//middleware
 const {
     isLoggedIn,
     isCampAuthor,
     validateCampground,
+    validateImages,
 } = require('../middleware');
 
 router
@@ -18,7 +22,9 @@ router
     //add new campground POST request
     .post(
         isLoggedIn,
+        upload.array('image'),
         validateCampground,
+        // validateImages,
         wrapAsync(campgroundsController.createCampground)
     );
 
