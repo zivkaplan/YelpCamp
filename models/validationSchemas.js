@@ -7,6 +7,7 @@ module.exports.campgroundSchema = Joi.object({
         price: Joi.number().min(0).required(),
         description: Joi.string(),
     }).required(),
+    deleteImages: Joi.array(),
 });
 
 module.exports.imagesSchema = Joi.array().items(

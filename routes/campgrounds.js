@@ -10,7 +10,7 @@ const {
     isLoggedIn,
     isCampAuthor,
     validateCampground,
-    validateImages,
+    validateImages, //needs fix
 } = require('../middleware');
 
 router
