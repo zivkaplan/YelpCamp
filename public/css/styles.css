@@ -1,0 +1,34 @@
+body {
+    background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.3),
+            rgba(0, 0, 0, 0.6)
+        ),
+        url('https://images.unsplash.com/photo-1559521783-1d1599583485?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.cover-container {
+    max-width: 60vw;
+}
+
+#clusterMap {
+    height: 400px;
+    width: 100%;
+}
+
+.camp-img {
+    width: 400px;
+    height: 270px;
+    object-fit: cover;
+    object-position: 50% 50%;
+}
+
+.camp-img-show {
+    height: 400px;
+    object-fit: cover;
+    object-position: 50% 50%;
+}
