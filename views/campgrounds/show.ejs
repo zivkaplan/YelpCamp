@@ -51,7 +51,7 @@
                                 </button>
                             </form>
                         <% } %>
-                        <a class="card-link btn btn-outline-info my-1" href="/campgrounds">back to all
+                        <a class="card-link btn btn-info my-1" href="/campgrounds">back to all
                                                                                                                                                                             campgrounds</a>
                     </div>
                 </div>
@@ -59,6 +59,10 @@
             <div class="col-6">
                 <div id='map' style="height: <%= currentUser ? '200px' : '400px;'%> ;" class="mb-5 rounded-3 border border-1"></div>
                 <% if (currentUser) { %>
+                    <div class="card mb-3">
+                        <div class="card-body">
+
+                
                     <form class="mb-3 needs-validation" action="/campgrounds/<%= campground._id %>/reviews" method="POST" novalidate>
                         <label class="form-label lead mb-3" for="reviewBody">Write a review:</label>
 
@@ -78,8 +82,11 @@
 
                         <div class="mb-3">
                             <textarea class="form-control" name="review[body]" id="reviewBody" cols="30" rows="3" required></textarea>
-                            <button class="btn btn-outline-success mt-3 mb-5">add review</button>
+                            <button class="btn btn-success mt-3">add review</button>
                         </form>
+                    </div>
+                </div>
+                </div>
                     <% } %>
 
                     <% for (let review of campground.reviews) { %>
@@ -98,15 +105,16 @@
                                 </footer>
                                 <form class="d-flex justify-content-end" method="POST" action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE">
                                     <% if (currentUser && review.author._id.equals(currentUser._id)) { %>
-                                        <button class="btn btn-sm btn-outline-danger">
+                                        <button class="btn btn-sm btn-danger">
                                             delete
                                         </button>
                                     <% } %>
                                 </form>
                             </div>
                         </div>
+                        <% } %>
+
                     </div>
-                <% } %>
             </div>
 
         </div>
