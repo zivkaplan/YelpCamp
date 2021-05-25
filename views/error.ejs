@@ -7,11 +7,11 @@
                     <%= err.message %>
                 </p>
                 <hr>
-                <p>
-                </p>
-                <p class="mb-0">
+              <% if (process.env.NODE_ENV !== 'production') {%>   
+                <p class="mb-0 text-break">
                     <%= err.stack %>
                 </p>
+                <% } %> 
             </div>
         </div>
     </div>
