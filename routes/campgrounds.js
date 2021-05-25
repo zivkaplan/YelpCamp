@@ -24,7 +24,7 @@ router
         isLoggedIn,
         upload.array('image'),
         validateCampground,
-        // validateImages,
+        validateImages,
         wrapAsync(campgroundsController.createCampground)
     );
 

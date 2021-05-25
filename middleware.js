@@ -41,6 +41,7 @@ module.exports.validateCampground = function (req, res, next) {
 };
 
 module.exports.validateImages = function (req, res, next) {
+    console.log(req.files);
     const { error } = imagesSchema.validate(req.files);
     if (error) {
         const msg = error.details.map((el) => el.message).join(',');
