@@ -38,7 +38,7 @@ module.exports.imagesSchema = Joi.array().items(
     Joi.object({
         path: Joi.string().required().escapeHTML(),
         filename: Joi.string().required().escapeHTML(),
-    })
+    }).unknown()
 );
 
 module.exports.reviewSchema = Joi.object({
