@@ -15,8 +15,12 @@ const expressError = require(__dirname + '/utilities/expressError');
 const User = require('./models/user');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
+const MongoStore = require('connect-mongo');
+
 const port = 3000;
 const app = express();
+// const dbUrl = process.env.DB_URL;
+const dbUrl = 'mongodb://localhost:27017/yelp-camp';
 
 const campgroundRouter = require('./routes/campgrounds');
 const reviewRouter = require('./routes/reviews');
@@ -34,6 +38,13 @@ const appConfig = (function () {
             httpOnly: true,
             // secure: true,
         },
+        store: MongoStore.create({
+            mongoUrl: dbUrl,
+            touchAfter: 24 * 60 * 60,
+            crypto: {
+                secret: 'defaultSecret',
+            },
+        }),
     };
     app.engine('ejs', ejsMate);
     app.set('view engine', 'ejs');
@@ -107,7 +118,7 @@ const appConfig = (function () {
 const mongooseConfig = (function () {
     mongoose.set('useFindAndModify', false);
 
-    mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+    mongoose.connect(dbUrl, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true,
