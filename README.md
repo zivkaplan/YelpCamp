@@ -13,3 +13,7 @@ Build mainly with:
 -   Bootstrap
 -   Passport
 -   API: Mapbox, Cloudinary
+
+To do:
+
+-   fix responsivity issues
