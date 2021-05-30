@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const mongoose = require('mongoose');
 const Campground = require('../models/campground');
 const User = require('../models/user');
@@ -5,7 +9,7 @@ const passport = require('passport');
 const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+mongoose.connect(process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp', {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -27,8 +31,8 @@ const seedDb = async () => {
     await Campground.deleteMany({});
     await User.deleteMany({});
 
-    const user = new User({ username: 'Tim', email: 'tim@tim.com' });
-    const defaultUser = await User.register(user, 'tim');
+    const user = new User({ username: 'Colt', email: 'colt@colt.com' });
+    const defaultUser = await User.register(user, 'colt');
 
     for (let i = 0; i < 200; i++) {
         const randomNum = randomInt(1000);
