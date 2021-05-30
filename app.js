@@ -19,17 +19,17 @@ const MongoStore = require('connect-mongo');
 
 const port = 3000;
 const app = express();
-// const dbUrl = process.env.DB_URL;
-const dbUrl = 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 
 const campgroundRouter = require('./routes/campgrounds');
 const reviewRouter = require('./routes/reviews');
 const userRouter = require('./routes/users');
 
 const appConfig = (function () {
+    const secret = process.env.SECRET || 'defaultSecret';
     const sessionConfig = {
         name: 'SessConnect',
-        secret: 'defaultSecret',
+        secret: secret,
         resave: false,
         saveUninitialized: true,
         cookie: {
@@ -42,7 +42,7 @@ const appConfig = (function () {
             mongoUrl: dbUrl,
             touchAfter: 24 * 60 * 60,
             crypto: {
-                secret: 'defaultSecret',
+                secret: secret,
             },
         }),
     };
