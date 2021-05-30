@@ -17,7 +17,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const MongoStore = require('connect-mongo');
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 
@@ -163,5 +163,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-    console.log('Server on port 3000');
+    console.log(`Server on port ${port}`);
 });
